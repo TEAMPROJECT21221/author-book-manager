@@ -1,0 +1,183 @@
+Project Structure:
+
+- src
+  - main
+    - java
+      - com.example.library
+        - controller
+          - AuthorController.java
+          - BookController.java
+        - model
+          - Author.java
+          - Book.java
+        - repository
+          - AuthorRepository.java
+          - BookRepository.java
+        - service
+          - AuthorService.java
+          - BookService.java
+        - LibraryApplication.java
+    - resources
+      - templates
+        - authors.html
+        - author-details.html
+        - books.html
+        - book-details.html
+        - add-author.html
+        - add-book.html
+        - edit-author.html
+        - edit-book.html
+      - application.properties
+
+---
+
+LibraryApplication.java:
+
+package com.example.library;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LibraryApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(LibraryApplication.class, args);
+    }
+}
+
+---
+
+Author.java:
+
+package com.example.library.model;
+
+import org.springframework.data.annotation.Id;
+import java.util.List;
+
+public class Author {
+    @Id
+    private Long id;
+    private String name;
+
+    // Getters and Setters
+}
+
+---
+
+Book.java:
+
+package com.example.library.model;
+
+import org.springframework.data.annotation.Id;
+
+public class Book {
+    @Id
+    private Long id;
+    private String title;
+    private Long authorId;
+
+    // Getters and Setters
+}
+
+---
+
+AuthorRepository.java:
+
+package com.example.library.repository;
+
+import com.example.library.model.Author;
+import org.springframework.data.repository.CrudRepository;
+
+public interface AuthorRepository extends CrudRepository<Author, Long> {
+}
+
+---
+
+BookRepository.java:
+
+package com.example.library.repository;
+
+import com.example.library.model.Book;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+public interface BookRepository extends CrudRepository<Book, Long> {
+    List<Book> findByAuthorId(Long authorId);
+}
+
+---
+
+AuthorService.java:
+
+package com.example.library.service;
+
+import com.example.library.model.Author;
+import com.example.library.repository.AuthorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthorService {
+    @Autowired
+    private AuthorRepository repository;
+
+    public Iterable<Author> findAll() {
+        return repository.findAll();
+    }
+
+    public Author findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public void save(Author author) {
+        repository.save(author);
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+}
+
+---
+
+BookService.java:
+
+package com.example.library.service;
+
+import com.example.library.model.Book;
+import com.example.library.repository.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class BookService {
+    @Autowired
+    private BookRepository repository;
+
+    public Iterable<Book> findAll() {
+        return repository.findAll();
+    }
+
+    public Book findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public void save(Book book) {
+        repository.save(book);
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
+    public List<Book> findByAuthorId(Long authorId) {
+        return repository.findByAuthorId(authorId);
+    }
+}
+
+---
+
+(Controllers and HTML views will be added next for full functionality)

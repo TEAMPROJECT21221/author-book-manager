@@ -1,0 +1,27 @@
+
+## ⚙️ Technologies Used
+
+- Spring Boot
+- Spring MVC
+- Spring Data JDBC
+- Thymeleaf
+- H2 In-Memory Database
+
+## 🛠 Features
+
+- Add, edit, and delete authors
+- Add, edit, and delete books
+- View list of all books and authors
+- Link from books to their authors and vice versa
+- Simple and clean UI using Thymeleaf
+
+## 📂 Project Structure
+
+See the `src/main/java/com/example/library` folder for controllers, services, models, and repositories.
+See `src/main/resources/templates` for the HTML pages.
+
+## 📑 Assignment References
+
+- RESTful Web Service: Implemented with Spring MVC Controllers
+- Spring Data JDBC: Used for author-book relations and database access
+- Form Validation: To be applied in form templates and controllers
